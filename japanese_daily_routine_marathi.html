@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Japanese Daily Learning - 30 Day Challenge (Marathi)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+            padding: 30px;
+            animation: slideUp 0.5s ease-out;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .day-display {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .day-number {
+            font-size: 48px;
+            font-weight: 700;
+        }
+
+        .day-info {
+            text-align: left;
+        }
+
+        .day-info p {
+            font-size: 12px;
+            opacity: 0.9;
+            margin: 5px 0;
+        }
+
+        .task-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+
+        .task-phase {
+            font-size: 12px;
+            color: #667eea;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .task-description {
+            font-size: 15px;
+            color: #333;
+            font-weight: 500;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .task-time {
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 15px;
+        }
+
+        .marathi-section {
+            background: #fff3e0;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 12px;
+            border-left: 4px solid #ff9800;
+        }
+
+        .marathi-title {
+            font-size: 12px;
+            color: #e65100;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .marathi-text {
+            font-size: 13px;
+            color: #333;
+            line-height: 1.8;
+            direction: ltr;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .progress-section {
+            margin-bottom: 25px;
+        }
+
+        .progress-label {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .completion-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+
+        .completion-btn.incomplete {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .completion-btn.completed {
+            background: #4caf50;
+            color: white;
+            cursor: not-allowed;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .checkbox-custom {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #667eea;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-custom.checked {
+            background: #667eea;
+            border-color: #667eea;
+        }
+
+        .checkbox-custom.checked::after {
+            content: '✓';
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .checkbox-label {
+            font-size: 16px;
+            color: #333;
+            font-weight: 500;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .checkbox-label.completed {
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .date-display {
+            font-size: 13px;
+            color: #999;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: #f8f9fa;
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        .reset-section {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .reset-btn {
+            background: #ffc107;
+            color: #333;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .congratulations {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .congratulations.show {
+            display: block;
+            animation: celebrateIn 0.6s ease-out;
+        }
+
+        @keyframes celebrateIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .congratulations h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .emoji {
+            font-size: 60px;
+            margin: 20px 0;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .congratulations p {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .restart-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .restart-btn:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Japanese Learning</h1>
+            <p>30-Day Challenge (with Marathi)</p>
+        </div>
+
+        <div id="mainContent">
+            <div class="day-display">
+                <div>
+                    <div class="day-number" id="dayNumber">1</div>
+                </div>
+                <div class="day-info">
+                    <p>Current Day</p>
+                    <p id="dayText">Day 1 / 30</p>
+                </div>
+            </div>
+
+            <div class="task-section">
+                <div class="task-phase" id="taskPhase">Hiragana</div>
+                <div class="task-description" id="taskDescription">Learn: あ、い、う、え、お</div>
+                <div class="task-time" id="taskTime">⏱ 15 mins</div>
+
+                <div class="marathi-section">
+                    <div class="marathi-title">मराठी उच्चार:</div>
+                    <div class="marathi-text" id="marathiText">
+                        आ (a-आ) | ई (i-ई) | उ (u-उ) | ए (e-ए) | ओ (o-ओ)
+                    </div>
+                </div>
+            </div>
+
+            <div class="checkbox-container">
+                <div class="checkbox-custom" id="checkbox"></div>
+                <label class="checkbox-label" id="checkboxLabel">Mark as completed</label>
+            </div>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-label">Daily Streak</div>
+                    <div class="stat-value" id="streakCount">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Progress</div>
+                    <div class="stat-value" id="progressPercent">0%</div>
+                </div>
+            </div>
+
+            <div class="progress-section">
+                <div class="progress-label">
+                    <span>Overall Progress</span>
+                    <span id="dayProgress">0/30</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+                <button class="completion-btn incomplete" id="completeBtn" style="flex: 1;">Complete Today's Task</button>
+                <button id="undoBtn" style="padding: 15px 20px; border: 2px solid #ddd; background: white; color: #666; border-radius: 12px; font-weight: 600; cursor: pointer; display: none; transition: all 0.3s ease;">Undo</button>
+            </div>
+            <div class="date-display" id="dateDisplay"></div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn" onclick="previousDay()">← Previous Day</button>
+                <button class="nav-btn" onclick="nextDay()">Next Day →</button>
+            </div>
+
+            <div class="reset-section">
+                <p style="margin: 0 0 10px 0; font-size: 12px; color: #856404;">Reset progress or start over?</p>
+                <button class="reset-btn" onclick="resetToDay1()">Reset to Day 1</button>
+            </div>
+        </div>
+
+        <div class="congratulations" id="congratulations">
+            <div class="emoji">🎉</div>
+            <h2>Congratulations!</h2>
+            <p>You've completed all 30 days!</p>
+            <p style="font-size: 14px; color: #999;">You can now read and write all 92 Japanese characters (hiragana + katakana).</p>
+            <p style="font-size: 18px; margin: 20px 0;">準備完了! (Junbi Kanryou!)</p>
+            <p style="font-size: 14px; color: #999; margin-bottom: 30px;">Ready to start your Japanese class in 3 months!</p>
+            <button class="restart-btn" id="restartBtn">Start New Challenge</button>
+        </div>
+    </div>
+
+    <script>
+        const dayTasks = {
+            1: { phase: 'Hiragana', task: 'Learn: あ、い、う、え、お', marathi: 'आ (a-आ) | ई (i-ई) | उ (u-उ) | ए (e-ए) | ओ (o-ओ)', time: '15 mins' },
+            2: { phase: 'Hiragana', task: 'Learn: か、き、く、け、こ', marathi: 'का (ka-का) | की (ki-की) | कु (ku-कु) | के (ke-के) | को (ko-को)', time: '20 mins' },
+            3: { phase: 'Hiragana', task: 'Learn: さ、し、す、せ、そ', marathi: 'सा (sa-सा) | शी (shi-शी) | सु (su-सु) | से (se-से) | सो (so-सो)', time: '20 mins' },
+            4: { phase: 'Hiragana', task: 'Learn: た、ち、つ、て、と', marathi: 'ता (ta-ता) | ची (chi-ची) | तु (tsu-तु) | ते (te-ते) | तो (to-तो)', time: '20 mins' },
+            5: { phase: 'Hiragana', task: 'Learn: な、に、ぬ、ね、の', marathi: 'ना (na-ना) | नी (ni-नी) | नु (nu-नु) | ने (ne-ने) | नो (no-नो)', time: '20 mins' },
+            6: { phase: 'Hiragana', task: 'Drill day - Mix all 25 hiragana', marathi: 'आ का सा ता ना की की शी ची नी कु सु तु नु कु सु तु नु ए से ते ने के के शी ची नी ओ सो तो नो को को सो तो नो', time: '15 mins' },
+            7: { phase: 'Hiragana', task: 'Rest/Review - All 25 hiragana', marathi: 'सर्व 25 अक्षर पुन्हा वाचा आणि उच्चार करा', time: '5 mins' },
+            8: { phase: 'Hiragana', task: 'Learn: は、ひ、ふ、へ、ほ', marathi: 'हा (ha-हा) | ही (hi-ही) | फु (fu-फु) | हे (he-हे) | हो (ho-हो)', time: '20 mins' },
+            9: { phase: 'Hiragana', task: 'Learn: ま、み、む、め、も', marathi: 'मा (ma-मा) | मी (mi-मी) | मु (mu-मु) | मे (me-मे) | मो (mo-मो)', time: '20 mins' },
+            10: { phase: 'Hiragana', task: 'Learn: や、ゆ、よ', marathi: 'या (ya-या) | यु (yu-यु) | यो (yo-यो)', time: '20 mins' },
+            11: { phase: 'Hiragana', task: 'Learn: ら、り、る、れ、ろ', marathi: 'रा (ra-रा) | री (ri-री) | रु (ru-रु) | रे (re-रे) | रो (ro-रो)', time: '20 mins' },
+            12: { phase: 'Hiragana', task: 'Learn: わ、を、ん', marathi: 'वा (wa-वा) | वो (wo-वो) | न (n-न)', time: '20 mins' },
+            13: { phase: 'Hiragana', task: 'Drill day - Mix all 46 hiragana', marathi: 'सर्व 46 हिरागना अक्षर मिक्स करून वाचा', time: '15 mins' },
+            14: { phase: 'Hiragana', task: 'Rest/Review - All 46 hiragana complete!', marathi: 'सर्व 46 अक्षर पुन्हा एकदा वाचा - हिरागना पूर्ण!', time: '5 mins' },
+            15: { phase: 'Katakana', task: 'Learn: ア、イ、ウ、エ、オ', marathi: 'आ (a-आ) | ई (i-ई) | उ (u-उ) | ए (e-ए) | ओ (o-ओ)', time: '15 mins' },
+            16: { phase: 'Katakana', task: 'Learn: カ、キ、ク、ケ、コ', marathi: 'का (ka-का) | की (ki-की) | कु (ku-कु) | के (ke-के) | को (ko-को)', time: '20 mins' },
+            17: { phase: 'Katakana', task: 'Learn: サ、シ、ス、セ、ソ', marathi: 'सा (sa-सा) | शी (shi-शी) | सु (su-सु) | से (se-से) | सो (so-सो)', time: '20 mins' },
+            18: { phase: 'Katakana', task: 'Learn: タ、チ、ツ、テ、ト', marathi: 'ता (ta-ता) | ची (chi-ची) | तु (tsu-तु) | ते (te-ते) | तो (to-तो)', time: '20 mins' },
+            19: { phase: 'Katakana', task: 'Learn: ナ、ニ、ヌ、ネ、ノ', marathi: 'ना (na-ना) | नी (ni-नी) | नु (nu-नु) | ने (ne-ने) | नो (no-नो)', time: '20 mins' },
+            20: { phase: 'Katakana', task: 'Drill day - Mix all 20 katakana', marathi: 'आ का सा ता ना ई की शी ची नी उ कु सु तु नु', time: '15 mins' },
+            21: { phase: 'Katakana', task: 'Rest/Review - All 20 katakana', marathi: '20 कताकना अक्षर पुन्हा वाचा', time: '5 mins' },
+            22: { phase: 'Katakana', task: 'Learn: ハ、ヒ、フ、ヘ、ホ', marathi: 'हा (ha-हा) | ही (hi-ही) | फु (fu-फु) | हे (he-हे) | हो (ho-हो)', time: '20 mins' },
+            23: { phase: 'Katakana', task: 'Learn: マ、ミ、ム、メ、モ', marathi: 'मा (ma-मा) | मी (mi-मी) | मु (mu-मु) | मे (me-मे) | मो (mo-मो)', time: '20 mins' },
+            24: { phase: 'Katakana', task: 'Learn: ヤ、ユ、ヨ', marathi: 'या (ya-या) | यु (yu-यु) | यो (yo-यो)', time: '20 mins' },
+            25: { phase: 'Katakana', task: 'Learn: ラ、リ、ル、レ、ロ', marathi: 'रा (ra-रा) | री (ri-री) | रु (ru-रु) | रे (re-रे) | रो (ro-रो)', time: '20 mins' },
+            26: { phase: 'Katakana', task: 'Learn: ワ、ヲ、ン', marathi: 'वा (wa-वा) | वो (wo-वो) | न (n-न)', time: '20 mins' },
+            27: { phase: 'Katakana', task: 'Drill day - Mix all 46 katakana', marathi: 'सर्व 46 कताकना अक्षर मिक्स करून वाचा', time: '15 mins' },
+            28: { phase: 'Katakana', task: 'Rest/Review - All 46 katakana complete!', marathi: 'सर्व 46 कताकना अक्षर पुन्हा वाचा - पूर्ण!', time: '5 mins' },
+            29: { phase: 'Final Test', task: 'Mix all 92: あ、カ、い、ク、う、サ、え、タ、お、ナ (mixed hiragana + katakana)', marathi: 'सर्व 92 अक्षर मिक्स करून वाचा: आ का ई की उ कु ए के ओ को सा शी उ सु एवेनी ने हा ही फु हे होम मी मु मे मो या यु यो रा री रु रे रो वा वो न', time: '20 mins' },
+            30: { phase: 'Celebration', task: '🎉 Celebrate! All 92 characters learned!', marathi: '🎉 साजरा करा! सर्व 92 अक्षर शिकलेस!', time: '15 mins' },
+        };
+
+        // Load data from localStorage
+        function loadData() {
+            const savedDay = localStorage.getItem('jpDay');
+            const savedDate = localStorage.getItem('jpDate');
+            const savedCompleted = localStorage.getItem('jpCompleted') === 'true';
+            const currentDate = new Date().toDateString();
+
+            let currentDay = parseInt(savedDay || 1);
+
+            if (savedDate !== currentDate) {
+                if (savedCompleted && currentDay < 30) {
+                    currentDay = currentDay + 1;
+                }
+                localStorage.setItem('jpCompleted', 'false');
+                localStorage.setItem('jpDate', currentDate);
+            }
+
+            localStorage.setItem('jpDay', currentDay);
+
+            return {
+                day: currentDay,
+                completed: localStorage.getItem('jpCompleted') === 'true',
+                streak: parseInt(localStorage.getItem('jpStreak') || 0)
+            };
+        }
+
+        // Update UI
+        function updateUI() {
+            const data = loadData();
+            const task = dayTasks[data.day];
+
+            document.getElementById('dayNumber').textContent = data.day;
+            document.getElementById('dayText').textContent = `Day ${data.day} / 30`;
+            document.getElementById('taskPhase').textContent = task.phase;
+            document.getElementById('taskDescription').textContent = task.task;
+            document.getElementById('marathiText').textContent = task.marathi;
+            document.getElementById('taskTime').textContent = `⏱ ${task.time}`;
+            document.getElementById('streakCount').textContent = data.streak;
+            document.getElementById('progressPercent').textContent = Math.round((data.day / 30) * 100) + '%';
+            document.getElementById('dayProgress').textContent = `${data.day}/30`;
+            document.getElementById('progressFill').style.width = (data.day / 30) * 100 + '%';
+
+            const today = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            document.getElementById('dateDisplay').textContent = today;
+
+            const checkbox = document.getElementById('checkbox');
+            const checkboxLabel = document.getElementById('checkboxLabel');
+            const undoBtn = document.getElementById('undoBtn');
+            if (data.completed) {
+                checkbox.classList.add('checked');
+                checkboxLabel.classList.add('completed');
+                document.getElementById('completeBtn').classList.remove('incomplete');
+                document.getElementById('completeBtn').classList.add('completed');
+                document.getElementById('completeBtn').textContent = '✓ Completed Today';
+                undoBtn.style.display = 'block';
+            } else {
+                checkbox.classList.remove('checked');
+                checkboxLabel.classList.remove('completed');
+                document.getElementById('completeBtn').classList.add('incomplete');
+                document.getElementById('completeBtn').classList.remove('completed');
+                document.getElementById('completeBtn').textContent = 'Complete Today\'s Task';
+                undoBtn.style.display = 'none';
+            }
+
+            if (data.day === 30 && data.completed) {
+                document.getElementById('mainContent').style.display = 'none';
+                document.getElementById('congratulations').classList.add('show');
+            } else {
+                document.getElementById('mainContent').style.display = 'block';
+                document.getElementById('congratulations').classList.remove('show');
+            }
+        }
+
+        // Handle completion
+        function completeTask() {
+            const data = loadData();
+            if (data.completed) return;
+
+            localStorage.setItem('jpCompleted', 'true');
+            const newStreak = data.streak + 1;
+            localStorage.setItem('jpStreak', newStreak);
+
+            updateUI();
+        }
+
+        // Handle undo
+        function undoTask() {
+            localStorage.setItem('jpCompleted', 'false');
+            const data = loadData();
+            const newStreak = Math.max(0, data.streak - 1);
+            localStorage.setItem('jpStreak', newStreak);
+
+            updateUI();
+        }
+
+        // Navigate to previous day
+        function previousDay() {
+            let currentDay = parseInt(localStorage.getItem('jpDay') || 1);
+            if (currentDay > 1) {
+                currentDay--;
+                localStorage.setItem('jpDay', currentDay);
+                localStorage.setItem('jpCompleted', 'false');
+                updateUI();
+            }
+        }
+
+        // Navigate to next day
+        function nextDay() {
+            let currentDay = parseInt(localStorage.getItem('jpDay') || 1);
+            if (currentDay < 30) {
+                currentDay++;
+                localStorage.setItem('jpDay', currentDay);
+                localStorage.setItem('jpCompleted', 'false');
+                updateUI();
+            }
+        }
+
+        // Reset to Day 1
+        function resetToDay1() {
+            if (confirm('Reset progress to Day 1? This will clear your streak.')) {
+                localStorage.setItem('jpDay', 1);
+                localStorage.setItem('jpCompleted', 'false');
+                localStorage.setItem('jpStreak', 0);
+                const today = new Date().toDateString();
+                localStorage.setItem('jpDate', today);
+                updateUI();
+            }
+        }
+
+        // Handle restart
+        function restartChallenge() {
+            localStorage.removeItem('jpDay');
+            localStorage.removeItem('jpDate');
+            localStorage.removeItem('jpCompleted');
+            localStorage.removeItem('jpStreak');
+            location.reload();
+        }
+
+        // Event listeners
+        document.getElementById('checkbox').addEventListener('click', completeTask);
+        document.getElementById('checkboxLabel').addEventListener('click', completeTask);
+        document.getElementById('completeBtn').addEventListener('click', completeTask);
+        document.getElementById('undoBtn').addEventListener('click', undoTask);
+        document.getElementById('restartBtn').addEventListener('click', restartChallenge);
+
+        // Initialize
+        updateUI();
+    </script>
+</body>
+</html>
