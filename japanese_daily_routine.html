@@ -429,13 +429,16 @@
         function loadData() {
             const savedDay = localStorage.getItem('jpDay');
             const savedDate = localStorage.getItem('jpDate');
+            const savedCompleted = localStorage.getItem('jpCompleted') === 'true';
             const currentDate = new Date().toDateString();
 
             if (savedDate !== currentDate) {
-                // New day
-                let currentDay = savedDay ? parseInt(savedDay) + 1 : 1;
-                if (currentDay > 30) currentDay = 30;
-                localStorage.setItem('jpDay', currentDay);
+                // New day - only advance if YESTERDAY was completed
+                if (savedCompleted) {
+                    let currentDay = savedDay ? parseInt(savedDay) + 1 : 1;
+                    if (currentDay > 30) currentDay = 30;
+                    localStorage.setItem('jpDay', currentDay);
+                }
                 localStorage.setItem('jpDate', currentDate);
                 localStorage.setItem('jpCompleted', 'false');
             }
